@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Ultrasone Avonturen met de HC-SR04 Sensor! 🌟</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="lesson-container">
+        <h1>🚀 Ultrasone Avonturen: Ontdek de Geheimen van de HC-SR04 Sensor! 🌟</h1>
+
+        <div class="progress-bar">
+            <div id="progress"></div>
+        </div>
+
+        <div id="content-container">
+            <div class="mission" id="mission1">
+                <h2>Missie 1: De Mysterieuze Sensor</h2>
+                <p>Welkom, jonge uitvinders! 👩‍🔬👨‍🔬 Jullie zijn geselecteerd voor een speciale missie in het Ultra Geheime Laboratorium. Jullie taak? De krachten ontrafelen van de mysterieuze HC-SR04 ultrasonesensor!</p>
+                <img src="hc-sr04-sensor.jpg" alt="HC-SR04 Sensor" style="max-width: 100%;">
+                <div class="quiz">
+                    <p><strong>Vraag:</strong> Wat denk je dat deze coole sensor kan doen? 🤔</p>
+                    <form id="quiz1">
+                        <input type="radio" name="q1" value="a"> Gedachten lezen 🧠<br>
+                        <input type="radio" name="q1" value="b"> Afstand meten 📏<br>
+                        <input type="radio" name="q1" value="c"> Brownies bakken 🍪<br>
+                        <input type="radio" name="q1" value="d"> Met dolfijnen praten 🐬<br>
+                        <button type="button" onclick="checkAnswer(1)">Check mijn antwoord! 🔍</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mission hidden" id="mission2">
+                <h2>Missie 2: De Geheimen van Ultrageluid</h2>
+                <p>Goed gedaan, rekruten! 🎉 De HC-SR04 meet inderdaad afstand. Maar hoe? Laten we dieper in de werking duiken!</p>
+                
+                <h3>Wat is ultrageluid? 🔊</h3>
+                <p>Ultrageluid is geluid met een frequentie hoger dan wat mensen kunnen horen (boven 20 kHz). Onze sensor gebruikt geluid van ongeveer 40 kHz! Dat is zo hoog dat alleen vleermuizen en dolfijnen het kunnen horen! 🦇🐬</p>
+                
+                <h3>Hoe werkt de HC-SR04? 🧐</h3>
+                <ol>
+                    <li><strong>Uitzenden:</strong> De sensor heeft een zender (Trigger) die een korte ultrageluidspuls uitzendt. 📡</li>
+                    <li><strong>Reizen:</strong> Deze geluidsgolf reist door de lucht met de snelheid van het geluid (ongeveer 343 m/s bij kamertemperatuur). 🌊</li>
+                    <li><strong>Reflecteren:</strong> Wanneer de geluidsgolf een object tegenkomt, kaatst hij terug naar de sensor. 🏓</li>
+                    <li><strong>Ontvangen:</strong> De ontvanger (Echo) van de sensor vangt het gereflecteerde geluid op. 📡</li>
+                    <li><strong>Berekenen:</strong> De sensor meet de tijd tussen het uitzenden en ontvangen van het signaal. ⏱️</li>
+                </ol>
+                
+                <h3>De berekening 🧮</h3>
+                <p>Om de afstand te berekenen, gebruiken we deze formule:</p>
+                <pre>Afstand = (Tijd * Geluidssnelheid) / 2</pre>
+                <p>We delen door 2 omdat het geluid heen en weer reist!</p>
+
+                <div class="quiz">
+                    <p><strong>Vraag:</strong> Waarom gebruiken we ultrageluid in plaats van normaal hoorbaar geluid?</p>
+                    <form id="quiz2">
+                        <input type="radio" name="q2" value="a"> Het is cooler 😎<br>
+                        <input type="radio" name="q2" value="b"> Het reist sneller 🚀<br>
+                        <input type="radio" name="q2" value="c"> Het is nauwkeuriger voor korte afstanden en stoort mensen niet 🎯<br>
+                        <input type="radio" name="q2" value="d"> Ultrageluid is goedkoper om te produceren 💰<br>
+                        <button type="button" onclick="checkAnswer(2)">Check mijn antwoord! 🔍</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mission hidden" id="mission3">
+                <h2>Missie 3: Bouw je Eigen Afstandsdetector</h2>
+                <p>Nu wordt het echt cool! 😎 We gaan onze eigen afstandsdetector bouwen met de HC-SR04. Hier is wat je nodig hebt:</p>
+                <ul>
+                    <li>1x HC-SR04 sensor 📡</li>
+                    <li>1x Arduino (Uno of Nano) 🖥️</li>
+                    <li>4x jumper kabels (male-to-male) 🔌</li>
+                    <li>1x breadboard (optioneel, maar handig) 🍞</li>
+                </ul>
+                <p>Volg deze stappen om je detector te bouwen:</p>
+                <ol>
+                    <li>Verbind VCC van de sensor met 5V op de Arduino</li>
+                    <li>Verbind GND van de sensor met GND op de Arduino</li>
+                    <li>Verbind Trig van de sensor met pin 9 op de Arduino</li>
+                    <li>Verbind Echo van de sensor met pin 10 op de Arduino</li>
+                </ol>
+                <img src="hc-sr04-arduino-schema.jpg" alt="HC-SR04 Arduino Schema" style="max-width: 100%;">
+                
+                <div class="quiz">
+                    <p><strong>Vraag:</strong> Waarom verbinden we de Trig en Echo pinnen met verschillende pinnen op de Arduino?</p>
+                    <form id="quiz3">
+                        <input type="radio" name="q3" value="a"> Het maakt niet uit, je kunt ze met dezelfde pin verbinden 🤷‍♂️<br>
+                        <input type="radio" name="q3" value="b"> Trig is voor output (Arduino stuurt signaal) en Echo is voor input (Arduino ontvangt signaal) 🔄<br>
+                        <input type="radio" name="q3" value="c"> Om de sensor sneller te laten werken ⚡<br>
+                        <input type="radio" name="q3" value="d"> Zodat we meerdere sensoren kunnen aansluiten 🔢<br>
+                        <button type="button" onclick="checkAnswer(3)">Check mijn antwoord! 🔍</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mission hidden" id="mission4">
+                <h2>Missie 4: Programmeer je Detector</h2>
+                <p>Geweldig werk, techneuten! 🦸‍♂️🦸‍♀️ Nu gaan we onze detector tot leven brengen met code. Hier is een uitgebreide uitleg van de code:</p>
+                <pre><code>
+// Definieer de pinnen
+const int trigPin = 9;
+const int echoPin = 10;
+
+void setup() {
+  // Start seriële communicatie
+  Serial.begin(9600);
+  // Stel de pinmodes in
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
+
+void loop() {
+  // Variabelen voor de duur en afstand
+  long duration, distance;
+
+  // Zorg ervoor dat de trigger pin leeg is
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  // Stuur een 10 microseconde puls naar de trigger pin
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Lees de echo pin, en retourneer de reistijd in microseconden
+  duration = pulseIn(echoPin, HIGH);
+
+  // Bereken de afstand
+  distance = (duration/2) / 29.1; // Snelheid van geluid is 29.1 microseconden per centimeter
+
+  // Print het resultaat naar de seriële monitor
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  // Wacht even voordat we opnieuw meten
+  delay(1000);
+}
+                </code></pre>
+                <p>Upload de code naar je Arduino en open de Seriële Monitor. Je zou nu de afstand moeten zien! 📏✨</p>
+
+                <div class="quiz">
+                    <p><strong>Vraag:</strong> Waarom delen we de duur door 2 in de berekening van de afstand?</p>
+                    <form id="quiz4">
+                        <input type="radio" name="q4" value="a"> Om de berekening sneller te maken ⚡<br>
+                        <input type="radio" name="q4" value="b"> Omdat het geluid heen en weer reist, en we alleen de afstand naar het object willen weten 🔄<br>
+                        <input type="radio" name="q4" value="c"> Omdat geluid zich twee keer zo snel verplaatst als licht 💨<br>
+                        <input type="radio" name="q4" value="d"> Het is een fout in de code, we zouden niet moeten delen door 2 🐛<br>
+                        <button type="button" onclick="checkAnswer(4)">Check mijn antwoord! 🔍</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mission hidden" id="mission5">
+                <h2>Missie 5: Experimenteer en Verbeter</h2>
+                <p>Nu je detector werkt, is het tijd om te experimenteren! 🧪 Hier zijn wat coole ideeën:</p>
+                <ul>
+                    <li>Voeg een LED toe die oplicht als iets te dichtbij komt 💡</li>
+                    <li>Gebruik een buzzer om een geluid te maken bij bepaalde afstanden 🔔</li>
+                    <li>Maak een grafiek van de gemeten afstanden over tijd 📊</li>
+                    <li>Probeer verschillende oppervlakken te meten. Welke zijn makkelijk, welke moeilijk? 🧱🪞</li>
+                    <li>Kan je de nauwkeurigheid verbeteren door meerdere metingen te doen en het gemiddelde te nemen? 🎯</li>
+                </ul>
+                <p>Kies een experiment en pas je code aan om het uit te voeren!</p>
+
+                <div class="quiz">
+                    <p><strong>Vraag:</strong> Welk oppervlak denk je dat het moeilijkst te meten is met de ultrasonesensor?</p>
+                    <form id="quiz5">
+                        <input type="radio" name="q5" value="a"> Een vlakke muur 🧱<br>
+                        <input type="radio" name="q5" value="b"> Een bal ⚽<br>
+                        <input type="radio" name="q5" value="c"> Een stuk schuim 🧽<br>
+                        <input type="radio" name="q5" value="d"> Een glazen ruit 🪟<br>
+                        <button type="button" onclick="checkAnswer(5)">Check mijn antwoord! 🔍</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mission hidden" id="mission6">
+                <h2>Missie Volbracht: Ultrasone Meester! 🏆</h2>
+                <p>Gefeliciteerd, ultrasone avonturiers! 🎉 Jullie hebben de geheimen van de HC-SR04 sensor ontrafeld en zijn nu officiële Ultrasone Meesters!</p>
+                <p>Laten we nog eens kijken naar wat we hebben geleerd:</p>
+                <ul>
+                    <li>Ultrageluid is geluid met een frequentie hoger dan mensen kunnen horen 🦇</li>
+                    <li>De HC-SR04 zendt ultrageluid uit en vangt de echo op om afstand te meten 📏</li>
+                    <li>We gebruiken de reistijd van het geluid om de afstand te berekenen ⏱️</li>
+                    <li>Verschillende oppervlakken kunnen de nauwkeurigheid van de meting beïnvloeden 🧱🪞</li>
+                    <li>We kunnen de sensor gebruiken voor allerlei coole projecten! 🚀</li>
+                </ul>
+                <p>Wat kun je nog meer doen met je nieuwe superkracht? 💪</p>
+                <ul>
+                    <li>Bouw een parkeerassistent voor je fiets 🚲</li>
+                    <li>Maak een automatische deurbelannunciator 🚪🔔</li>
+                    <li>Creëer een 'sociale afstand'-herinnering voor je kamer 😷</li>
+                    <li>Ontwerp een robot die obstakels kan vermijden 🤖</li>
+                    <li>Maak een waterstandmeter voor een aquarium 🐠</li>
+                </ul>
+                
+                <div class="fun-fact">
+                    <p><strong>Wist je dat?</strong> Sommige auto's gebruiken vergelijkbare ultrasoonsensoren voor parkeerhulp en automatisch parkeren! 🚗</p>
+                </div>
+                
+                <div class="quiz">
+                    <p><strong>Laatste Uitdaging:</strong> Kan je bedenken hoe je de HC-SR04 zou kunnen gebruiken om de snelheid van een bewegend object te meten? 🏎️</p>
+                    <textarea id="final-challenge" rows="4" cols="50"></textarea><br>
+                    <button onclick="checkFinalChallenge()">Check mijn idee! 💡</button>
+                </div>
+            </div>
+        </div>
+
+        <button id="nextButton" onclick="nextMission()" style="float: right;">Volgende Avontuur! 🚀</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
