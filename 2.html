@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Robot Tutorial - Dag 3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .lesson {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background-color: #f8f8f8;
+            border-left: 4px solid #2c3e50;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Arduino Robot Tutorial - Dag 3</h1>
+    
+    <div class="lesson">
+        <h2>Les 1: Begrip van PWM en Motor Drivers</h2>
+        <p>In deze les leren we over PWM-signalen en motor drivers.</p>
+        <button onclick="toggleContent('lesson1')">Toon/Verberg Inhoud</button>
+        <div id="lesson1" class="hidden">
+            <h3>PWM (Pulse Width Modulation)</h3>
+            <p>PWM is een techniek die wordt gebruikt om de snelheid van een motor te regelen. Het werkt door de motor snel aan en uit te schakelen. Hoe langer de motor aan staat, hoe sneller hij zal draaien.</p>
+            <h3>Motor Driver</h3>
+            <p>Een motor driver is noodzakelijk omdat:</p>
+            <ul>
+                <li>De motor mogelijk een andere spanning nodig heeft dan de Arduino</li>
+                <li>De motor mogelijk wisselstroom gebruikt terwijl Arduino gelijkstroom gebruikt</li>
+                <li>Het houdt de twee voedingsbronnen gescheiden</li>
+            </ul>
+            <p>We zullen de L298N motor driver gebruiken in dit project.</p>
+        </div>
+    </div>
+
+    <div class="lesson">
+        <h2>Les 2: De Motor Driver Aansluiten</h2>
+        <p>Leer hoe je de L298N motor driver aansluit op je Arduino en motoren.</p>
+        <button onclick="toggleContent('lesson2')">Toon/Verberg Inhoud</button>
+        <div id="lesson2" class="hidden">
+            <h3>Aansluitingen:</h3>
+            <ul>
+                <li>VCC: Aansluiten op batterijen</li>
+                <li>5V: Kan worden gebruikt om de Arduino van stroom te voorzien (aansluiten op Vin-pin)</li>
+                <li>Ground: Gemeenschappelijk tussen VCC en 5V</li>
+                <li>Motor A/B Aansluitingen: Sluit hier je motoren aan</li>
+                <li>ENA/ENB: Regel motorsnelheid met PWM-signaal</li>
+                <li>IN1/IN2 en IN3/IN4: Regel motorrichting</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="lesson">
+        <h2>Les 3: Arduino Code</h2>
+        <p>Nu gaan we kijken naar de Arduino-code om onze robot te besturen.</p>
+        <button onclick="toggleContent('lesson3')">Toon/Verberg Inhoud</button>
+        <div id="lesson3" class="hidden">
+            <div class="code-block">
+const int ENA = 11;
+const int IN1 = 10;
+const int IN2 = 9;
+const int IN3 = 8;
+const int IN4 = 7;
+const int ENB = 6;
+
+void setup() {
+  pinMode(ENA, OUTPUT);
+  pinMode(ENB, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+}
+
+void loop() {
+  motoren(150, 150); // de robot rijdt vooruit
+  // motoren(-150, -150); // de robot rijdt achteruit
+  delay(100);
+}
+
+void motoren(int snelheid_A, int snelheid_B) {
+  // richting motor A
+  if (snelheid_A < 0) {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, HIGH);
+  } else {
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+  }
+  // richting motor B
+  if (snelheid_B < 0) {
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
+  } else {
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, HIGH);
+  }
+  
+  // snelheid motor A + B
+  analogWrite(ENA, abs(snelheid_A));
+  analogWrite(ENB, abs(snelheid_B));
+}
+            </div>
+            <p>Deze code stelt de pinnen in, definieert een functie om de motoren te besturen, en laat de robot vooruit bewegen in de hoofdlus.</p>
+        </div>
+    </div>
+
+    <div class="lesson">
+        <h2>Les 4: De Robot Bouwen</h2>
+        <p>Tenslotte gaan we onze robot in elkaar zetten!</p>
+        <button onclick="toggleContent('lesson4')">Toon/Verberg Inhoud</button>
+        <div id="lesson4" class="hidden">
+            <ol>
+                <li>Plaats de batterijen in het midden van het chassis.</li>
+                <li>Bevestig de twee ultrasone sensoren aan de voorkant en zijkant.</li>
+                <li>Monteer de motoren naast de batterijen met behulp van beugels en schroeven.</li>
+                <li>Plaats de Arduino en motor driver aan de achterkant van het chassis.</li>
+                <li>Bevestig het plastic stuk aan de achterkant voor stabiliteit.</li>
+            </ol>
+            <p>Opmerking: De meeste onderdelen zouden in hun aangewezen plaatsen moeten passen zonder lijm of schroeven nodig te hebben (behalve voor de motoren).</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleContent(id) {
+            var content = document.getElementById(id);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
