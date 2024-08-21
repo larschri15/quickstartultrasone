@@ -1,71 +1,133 @@
-// Definieer de pinnen voor de eerste sonar
-const int trigPin1 = 9;
-const int echoPin1 = 10;
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Code Kopieerbaar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        pre {
+            background-color: #282c34;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
 
-// Definieer de pinnen voor de tweede sonar
-const int trigPin2 = 11;
-const int echoPin2 = 12;
+<div class="container">
+    <h2>Arduino Code</h2>
+    <pre id="code">
+        // Definieer de pinnen voor de eerste sonar
+        const int trigPin1 = 9;
+        const int echoPin1 = 10;
 
-void setup() {
-  // Start seriële communicatie
-  Serial.begin(9600);
-  
-  // Stel de pinmodes in voor de eerste sonar
-  pinMode(trigPin1, OUTPUT);
-  pinMode(echoPin1, INPUT);
-  
-  // Stel de pinmodes in voor de tweede sonar
-  pinMode(trigPin2, OUTPUT);
-  pinMode(echoPin2, INPUT);
-}
+        // Definieer de pinnen voor de tweede sonar
+        const int trigPin2 = 11;
+        const int echoPin2 = 12;
 
-void loop() {
-  // Variabelen voor de duur en afstand van de eerste sonar
-  long duration1, distance1;
+        void setup() {
+            // Start seriële communicatie
+            Serial.begin(9600);
 
-  // Zorg ervoor dat de trigger pin van de eerste sonar leeg is
-  digitalWrite(trigPin1, LOW);
-  delayMicroseconds(2);
+            // Stel de pinmodes in voor de eerste sonar
+            pinMode(trigPin1, OUTPUT);
+            pinMode(echoPin1, INPUT);
 
-  // Stuur een 10 microseconde puls naar de trigger pin van de eerste sonar
-  digitalWrite(trigPin1, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin1, LOW);
+            // Stel de pinmodes in voor de tweede sonar
+            pinMode(trigPin2, OUTPUT);
+            pinMode(echoPin2, INPUT);
+        }
 
-  // Lees de echo pin van de eerste sonar, en retourneer de reistijd in microseconden
-  duration1 = pulseIn(echoPin1, HIGH);
+        void loop() {
+            // Variabelen voor de duur en afstand van de eerste sonar
+            long duration1, distance1;
 
-  // Bereken de afstand voor de eerste sonar
-  distance1 = (duration1/2) / 29.1; // Snelheid van geluid is 29.1 microseconden per centimeter
+            // Zorg ervoor dat de trigger pin van de eerste sonar leeg is
+            digitalWrite(trigPin1, LOW);
+            delayMicroseconds(2);
 
-  // Print het resultaat van de eerste sonar naar de seriële monitor
-  Serial.print("Afstand sensor 1: ");
-  Serial.print(distance1);
-  Serial.println(" cm");
-  
-  // Variabelen voor de duur en afstand van de tweede sonar
-  long duration2, distance2;
+            // Stuur een 10 microseconde puls naar de trigger pin van de eerste sonar
+            digitalWrite(trigPin1, HIGH);
+            delayMicroseconds(10);
+            digitalWrite(trigPin1, LOW);
 
-  // Zorg ervoor dat de trigger pin van de tweede sonar leeg is
-  digitalWrite(trigPin2, LOW);
-  delayMicroseconds(2);
+            // Lees de echo pin van de eerste sonar, en retourneer de reistijd in microseconden
+            duration1 = pulseIn(echoPin1, HIGH);
 
-  // Stuur een 10 microseconde puls naar de trigger pin van de tweede sonar
-  digitalWrite(trigPin2, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin2, LOW);
+            // Bereken de afstand voor de eerste sonar
+            distance1 = (duration1/2) / 29.1;
 
-  // Lees de echo pin van de tweede sonar, en retourneer de reistijd in microseconden
-  duration2 = pulseIn(echoPin2, HIGH);
+            // Print het resultaat van de eerste sonar naar de seriële monitor
+            Serial.print("Afstand sensor 1: ");
+            Serial.print(distance1);
+            Serial.println(" cm");
 
-  // Bereken de afstand voor de tweede sonar
-  distance2 = (duration2/2) / 29.1; // Snelheid van geluid is 29.1 microseconden per centimeter
+            // Variabelen voor de duur en afstand van de tweede sonar
+            long duration2, distance2;
 
-  // Print het resultaat van de tweede sonar naar de seriële monitor
-  Serial.print("Afstand sensor 2: ");
-  Serial.print(distance2);
-  Serial.println(" cm");
+            // Zorg ervoor dat de trigger pin van de tweede sonar leeg is
+            digitalWrite(trigPin2, LOW);
+            delayMicroseconds(2);
 
-  // Wacht even voordat we opnieuw meten
-  delay(1000);
-}
+            // Stuur een 10 microseconde puls naar de trigger pin van de tweede sonar
+            digitalWrite(trigPin2, HIGH);
+            delayMicroseconds(10);
+            digitalWrite(trigPin2, LOW);
+
+            // Lees de echo pin van de tweede sonar, en retourneer de reistijd in microseconden
+            duration2 = pulseIn(echoPin2, HIGH);
+
+            // Bereken de afstand voor de tweede sonar
+            distance2 = (duration2/2) / 29.1;
+
+            // Print het resultaat van de tweede sonar naar de seriële monitor
+            Serial.print("Afstand sensor 2: ");
+            Serial.print(distance2);
+            Serial.println(" cm");
+
+            // Wacht even voordat we opnieuw meten
+            delay(1000);
+        }
+    </pre>
+    <button onclick="copyCode()">Kopieer Code</button>
+</div>
+
+<script>
+    function copyCode() {
+        var codeElement = document.getElementById("code");
+        var range = document.createRange();
+        range.selectNode(codeElement);
+        window.getSelection().removeAllRanges(); 
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges(); 
+        alert("Code gekopieerd naar klembord!");
+    }
+</script>
+
+</body>
+</html>
