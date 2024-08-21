@@ -1,104 +1,71 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arduino Sonar Project</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #2c3e50;
-        }
-        p {
-            line-height: 1.6;
-        }
-        pre {
-            background-color: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        .comment {
-            color: #75715e;
-        }
-        .keyword {
-            color: #66d9ef;
-        }
-        .datatype {
-            color: #a6e22e;
-        }
-        .function {
-            color: #a6e22e;
-        }
-    </style>
-</head>
-<body>
+// Definieer de pinnen voor de eerste sonar
+const int trigPin1 = 9;
+const int echoPin1 = 10;
 
-    <h1>Arduino Sonar Project met Twee Sonars</h1>
-    <p>In dit project gaan we twee sonar-sensoren gebruiken om afstanden te meten. Hieronder zie je de Arduino-code, die we stap voor stap zullen uitleggen.</p>
+// Definieer de pinnen voor de tweede sonar
+const int trigPin2 = 11;
+const int echoPin2 = 12;
 
-    <h2>De Code</h2>
-    <pre>
-        <span class="comment">// Definieer de pinnen voor de eerste sonar</span>
-        <span class="keyword">const</span> <span class="datatype">int</span> trigPin1 = 9;
-        <span class="keyword">const</span> <span class="datatype">int</span> echoPin1 = 10;
+void setup() {
+  // Start seriële communicatie
+  Serial.begin(9600);
+  
+  // Stel de pinmodes in voor de eerste sonar
+  pinMode(trigPin1, OUTPUT);
+  pinMode(echoPin1, INPUT);
+  
+  // Stel de pinmodes in voor de tweede sonar
+  pinMode(trigPin2, OUTPUT);
+  pinMode(echoPin2, INPUT);
+}
 
-        <span class="comment">// Definieer de pinnen voor de tweede sonar</span>
-        <span class="keyword">const</span> <span class="datatype">int</span> trigPin2 = 11;
-        <span class="keyword">const</span> <span class="datatype">int</span> echoPin2 = 12;
+void loop() {
+  // Variabelen voor de duur en afstand van de eerste sonar
+  long duration1, distance1;
 
-        <span class="keyword">void</span> setup() {
-          <span class="comment">// Start seriële communicatie</span>
-          Serial.begin(9600);
+  // Zorg ervoor dat de trigger pin van de eerste sonar leeg is
+  digitalWrite(trigPin1, LOW);
+  delayMicroseconds(2);
 
-          <span class="comment">// Stel de pinmodes in voor de eerste sonar</span>
-          pinMode(trigPin1, OUTPUT);
-          pinMode(echoPin1, INPUT);
+  // Stuur een 10 microseconde puls naar de trigger pin van de eerste sonar
+  digitalWrite(trigPin1, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin1, LOW);
 
-          <span class="comment">// Stel de pinmodes in voor de tweede sonar</span>
-          pinMode(trigPin2, OUTPUT);
-          pinMode(echoPin2, INPUT);
-        }
+  // Lees de echo pin van de eerste sonar, en retourneer de reistijd in microseconden
+  duration1 = pulseIn(echoPin1, HIGH);
 
-        <span class="keyword">void</span> loop() {
-          <span class="comment">// Variabelen voor de duur en afstand van de eerste sonar</span>
-          <span class="datatype">long</span> duration1, distance1;
+  // Bereken de afstand voor de eerste sonar
+  distance1 = (duration1/2) / 29.1; // Snelheid van geluid is 29.1 microseconden per centimeter
 
-          <span class="comment">// Zorg ervoor dat de trigger pin van de eerste sonar leeg is</span>
-          digitalWrite(trigPin1, LOW);
-          delayMicroseconds(2);
+  // Print het resultaat van de eerste sonar naar de seriële monitor
+  Serial.print("Afstand sensor 1: ");
+  Serial.print(distance1);
+  Serial.println(" cm");
+  
+  // Variabelen voor de duur en afstand van de tweede sonar
+  long duration2, distance2;
 
-          <span class="comment">// Stuur een 10 microseconde puls naar de trigger pin van de eerste sonar</span>
-          digitalWrite(trigPin1, HIGH);
-          delayMicroseconds(10);
-          digitalWrite(trigPin1, LOW);
+  // Zorg ervoor dat de trigger pin van de tweede sonar leeg is
+  digitalWrite(trigPin2, LOW);
+  delayMicroseconds(2);
 
-          <span class="comment">// Lees de echo pin van de eerste sonar, en retourneer de reistijd in microseconden</span>
-          duration1 = pulseIn(echoPin1, HIGH);
+  // Stuur een 10 microseconde puls naar de trigger pin van de tweede sonar
+  digitalWrite(trigPin2, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin2, LOW);
 
-          <span class="comment">// Bereken de afstand voor de eerste sonar</span>
-          distance1 = (duration1/2) / 29.1;
+  // Lees de echo pin van de tweede sonar, en retourneer de reistijd in microseconden
+  duration2 = pulseIn(echoPin2, HIGH);
 
-          <span class="comment">// Print het resultaat van de eerste sonar naar de seriële monitor</span>
-          Serial.print("Afstand sensor 1: ");
-          Serial.print(distance1);
-          Serial.println(" cm");
+  // Bereken de afstand voor de tweede sonar
+  distance2 = (duration2/2) / 29.1; // Snelheid van geluid is 29.1 microseconden per centimeter
 
-          <span class="comment">// Variabelen voor de duur en afstand van de tweede sonar</span>
-          <span class="datatype">long</span> duration2, distance2;
+  // Print het resultaat van de tweede sonar naar de seriële monitor
+  Serial.print("Afstand sensor 2: ");
+  Serial.print(distance2);
+  Serial.println(" cm");
 
-          <span class="comment">// Zorg ervoor dat de trigger pin van de tweede sonar leeg is</span>
-          digitalWrite(trigPin2, LOW);
-          delayMicroseconds(2);
-
-          <span class="comment">// Stuur een 10 microseconde puls naar de trigger pin van de tweede sonar</span>
-          digitalWrite(trigPin2, HIGH);
-          delayMicroseconds(10);
-          digitalWrite(trigPin2, LOW
+  // Wacht even voordat we opnieuw meten
+  delay(1000);
+}
