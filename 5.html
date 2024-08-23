@@ -34,81 +34,88 @@
     <p>Hieronder vind je de Arduino-code die je kunt kopiëren:</p>
 
     <pre><code>
-// Sonar-sensor pinnen
-const int ECHO = 2;  // Sonar echo pin
-const int TRIG = 4;  // Sonar trigger pin
-int afstand;
-
-// Motorbesturing pinnen
-const int ENA = 11;  // Motor A speed control pin
-const int IN1 = 10;  // Motor A direction pin 1
-const int IN2 = 9;   // Motor A direction pin 2
-const int IN3 = 8;   // Motor B direction pin 1
-const int IN4 = 7;   // Motor B direction pin 2
-const int ENB = 6;   // Motor B speed control pin
-
-int snelheid = 100;
-
-void setup() {
-    // Initialiseer sonar-sensor pinnen
-    pinMode(ECHO, INPUT);
-    pinMode(TRIG, OUTPUT);
-
-    // Initialiseer motorbesturing pinnen
-    pinMode(ENA, OUTPUT);
-    pinMode(ENB, OUTPUT);
-    pinMode(IN1, OUTPUT);
-    pinMode(IN2, OUTPUT);
-    pinMode(IN3, OUTPUT);
-    pinMode(IN4, OUTPUT);
-}
-
-void loop() {
-    // Meet de afstand met de ultrasone sensor
-    afstand = ultrasonesensor(ECHO, TRIG);
-
-    if (afstand < 30) { // Bij obstakel, draai
-        motoren(snelheid, -snelheid);
-    } else { // Anders, rij rechtdoor
-        motoren(snelheid, snelheid);
-    }
-
-    delay(20);
-}
-
-int ultrasonesensor(int echo, int trig) {
-    digitalWrite(trig, LOW);
-    delayMicroseconds(2);
-    digitalWrite(trig, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trig, LOW);
-
-    return pulseIn(echo, HIGH) * 0.01715;
-}
-
-void motoren(int snelheid_A, int snelheid_B) {
-    // Richting motor A
-    if (snelheid_A < 0) {
-        digitalWrite(IN1, LOW);
-        digitalWrite(IN2, HIGH);
-    } else {
-        digitalWrite(IN1, HIGH);
-        digitalWrite(IN2, LOW);
-    }
-
-    // Richting motor B
-    if (snelheid_B < 0) {
-        digitalWrite(IN3, HIGH);
-        digitalWrite(IN4, LOW);
-    } else {
-        digitalWrite(IN3, LOW);
-        digitalWrite(IN4, HIGH);
-    }
-  
-    // Snelheid motor A en B
-    analogWrite(ENA, abs(snelheid_A));
-    analogWrite(ENB, abs(snelheid_B));
-}
+        const int ECHO = 2;  // Sonar echo pin
+        const int TRIG = 4;  // Sonar trigger pin
+        int afstand;
+        
+        const int ENA = 11;  // Motor A speed control pin
+        const int IN1 = 10;  // Motor A direction pin 1
+        const int IN2 = 9;   // Motor A direction pin 2
+        const int IN3 = 8;   // Motor B direction pin 1
+        const int IN4 = 7;   // Motor B direction pin 2
+        const int ENB = 6;   // Motor B speed control pin
+        
+        int snelheid = 100;
+        
+        void setup() {
+            // Initialiseer sonar-sensor pinnen
+            pinMode(ECHO, INPUT);
+            pinMode(TRIG, OUTPUT);
+        
+            // Initialiseer motorbesturing pinnen
+            pinMode(ENA, OUTPUT);
+            pinMode(ENB, OUTPUT);
+            pinMode(IN1, OUTPUT);
+            pinMode(IN2, OUTPUT);
+            pinMode(IN3, OUTPUT);
+            pinMode(IN4, OUTPUT);
+        
+            // Start de seriële communicatie
+            Serial.begin(9600);
+        }
+        
+        void loop() {
+            // Meet de afstand met de ultrasone sensor
+            afstand = ultrasonesensor(ECHO, TRIG);
+        
+            // Geef de gemeten afstand weer in de seriële monitor
+            Serial.print("Afstand: ");
+            Serial.print(afstand);
+            Serial.println(" cm");
+        
+            if (afstand < 30) { // Bij obstakel, draai
+                motoren(snelheid, -snelheid);
+            } else { // Anders, rij rechtdoor
+                motoren(snelheid, snelheid);
+            }
+        
+            delay(500); // Pauzeer een halve seconde tussen metingen
+        }
+        
+        int ultrasonesensor(int echo, int trig) {
+            digitalWrite(trig, LOW);
+            delayMicroseconds(2);
+            digitalWrite(trig, HIGH);
+            delayMicroseconds(10);
+            digitalWrite(trig, LOW);
+        
+            return pulseIn(echo, HIGH) * 0.01715;
+        }
+        
+        void motoren(int snelheid_A, int snelheid_B) {
+            // Richting motor A
+            if (snelheid_A < 0) {
+                digitalWrite(IN1, LOW);
+                digitalWrite(IN2, HIGH);
+            } else {
+                digitalWrite(IN1, HIGH);
+                digitalWrite(IN2, LOW);
+            }
+        
+            // Richting motor B
+            if (snelheid_B < 0) {
+                digitalWrite(IN3, HIGH);
+                digitalWrite(IN4, LOW);
+            } else {
+                digitalWrite(IN3, LOW);
+                digitalWrite(IN4, HIGH);
+            }
+          
+            // Snelheid motor A en B
+            analogWrite(ENA, abs(snelheid_A));
+            analogWrite(ENB, abs(snelheid_B));
+        }
+        
     </code></pre>
 
 </body>
